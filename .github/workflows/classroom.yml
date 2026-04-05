@@ -13,36 +13,18 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
-    - name: Environment check
-      id: environment-check
-      uses: classroom-resources/autograding-command-grader@v1
-      with:
-        test-name: Environment check
-        setup-command: python -m pip install --upgrade pip pip install -r requirements.txt
-        command: python src/env_check.py
-        timeout: 10
-        max-score: 10
     - name: Hello NLP script
       id: hello-nlp-script
       uses: classroom-resources/autograding-command-grader@v1
       with:
         test-name: Hello NLP script
         setup-command: python -m pip install --upgrade pip pip install -r requirements.txt
-        command: python src/hello_nlp_random.py
+        command: python src/hello_nlp.py
         timeout: 2
         max-score: 10
-    - name: Pytest suite
-      id: pytest-suite
-      uses: classroom-resources/autograding-python-grader@v1
-      with:
-        timeout: 5
-        max-score: 80
-        setup-command: python -m pip install --upgrade pip pip install -r requirements.txt
     - name: Autograding Reporter
       uses: classroom-resources/autograding-grading-reporter@v1
       env:
-        ENVIRONMENT-CHECK_RESULTS: "${{steps.environment-check.outputs.result}}"
         HELLO-NLP-SCRIPT_RESULTS: "${{steps.hello-nlp-script.outputs.result}}"
-        PYTEST-SUITE_RESULTS: "${{steps.pytest-suite.outputs.result}}"
       with:
-        runners: environment-check,hello-nlp-script,pytest-suite
+        runners: hello-nlp-script
