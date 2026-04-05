@@ -18,7 +18,9 @@ jobs:
       uses: classroom-resources/autograding-command-grader@v1
       with:
         test-name: Hello NLP script
-        setup-command: python -m pip install --upgrade pip pip install -r requirements_core.txt
+        setup-command: 
+          python -m pip install --upgrade pip 
+          pip install -r requirements_core.txt
         command: python src/hello_nlp.py
         timeout: 2
         max-score: 10
